@@ -27,6 +27,12 @@
   [text]
   (s/replace (s/trim text) #"lol" "LOL"))
 
+(defn clean2
+  [text]
+  (reduce (fn [string string-fn] (string-fn string))
+          text
+          [s/trim #(s/replace % #"lol" "LOL")]))
+
 (def character
   {:name "Smooches McCutes"
    :attributes {:intelligence 10
