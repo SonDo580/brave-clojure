@@ -1,5 +1,7 @@
-;; MACRO
+;; read-string
+;; eval
 
+;; MACRO
 (defmacro ignore-last-operand
   [function-call]
   (butlast function-call))
