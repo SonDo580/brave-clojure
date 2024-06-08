@@ -1,6 +1,6 @@
-(ns functional-programming.pegthing
-  (require [clojure.set :as set])
-  (:require [clojure.string :as str]))
+(ns pegthing.core
+  (:require [clojure.string])
+  (:gen-class))
 
 (declare successful-move invalid-move prompt-move game-over prompt-rows)
 
@@ -289,11 +289,11 @@
 
 (defn get-input
   "Waits for user to enter text and hit enter, then cleans the input"
-  ([] (get-input nil))
+  ([] (get-input ""))
   ([default]
    (let [input (clojure.string/trim (read-line))]
      (if (empty? input)
-       (default)
+       default
        (clojure.string/lower-case input)))))
 
 (defn characters-as-strings
@@ -354,3 +354,7 @@
   (let [rows (Integer. (get-input 5))
         board (new-board rows)]
     (prompt-empty-peg board)))
+
+(defn -main
+  [& args]
+  (prompt-rows))
