@@ -1,4 +1,6 @@
-(ns crash-course.hobbit)
+(ns hobbit.core
+  (:gen-class) 
+  (:require [clojure.string]))
 
 (def asym-body-parts [{:name "head" :size 3}
                       {:name "left-eye" :size 1}
@@ -25,6 +27,7 @@
   {:name (clojure.string/replace (:name part) #"^left-" "right-")
    :size (:size part)})
 
+;; NOT USED
 (defn symmetrize-body-parts
   "Expects a sequence of maps that have a :name and :size"
   [asym-body-parts]
@@ -36,18 +39,6 @@
         (recur remaining
                (into final-body-parts
                      (set [part (matching-part part)])))))))
-
-(defn my-reduce
-  "A custom implementation of reduce"
-  ([f initial collection]
-   (loop [result initial
-          remaining collection]
-     (if (empty? remaining)
-       result
-       (recur (f result (first remaining))
-              (rest remaining)))))
-  ([f [head & tail]]
-   (my-reduce f head tail)))
 
 (defn better-symmetrize-body-parts
   "Expects a sequence of maps that have a :name and :size"
@@ -71,3 +62,9 @@
         (recur remaining
                (+ accumulated-size
                   (:size (first remaining))))))))
+
+(defn -main
+  "I don't do a whole lot ... yet."
+  [& args]
+  (let [hit-part (hit asym-body-parts)]
+    (println "Hit:" (:name hit-part))))
