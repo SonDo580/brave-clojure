@@ -1,8 +1,6 @@
 (ns functional-programming.note
   (:require [clojure.string :as s]))
 
-(require '[clojure.string :as s])
-
 ;; (defn sum
 ;;   ([vals]
 ;;    (sum vals 0))
