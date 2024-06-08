@@ -1,6 +1,8 @@
-(ns core-functions.fwpd)
+(ns fwpd.core
+  (:require clojure.string)
+  (:gen-class))
 
-(def filename "src/core_functions/suspects.csv")
+(def filename "suspects.csv")
 
 (def vamp-keys [:name :glitter-index])
 
@@ -22,7 +24,7 @@
        (clojure.string/split string #"\n")))
 
 (defn mapify
-   "Return a seq of maps like {:name \"Edward Cullen\" :glitter-index 10}"
+  "Return a seq of maps like {:name \"Edward Cullen\" :glitter-index 10}"
   [rows]
   (map (fn [unmapped-row]
          (reduce (fn [row-map [vamp-key value]]
@@ -36,4 +38,11 @@
   (filter #(>= (:glitter-index %) minimum-glitter)
           records))
 
-(glitter-filter 3 (mapify (parse (slurp filename))))
+(defn -main
+  [& args]
+  (let [content (slurp filename)
+        parsed-content (parse content)
+        records (mapify parsed-content)
+        filtered-records (glitter-filter 3 records)]
+    (doseq [record filtered-records]
+      (println record))))
