@@ -25,7 +25,7 @@
   ([] true)
   ([x] x)
   ([x & next]
-   (let [and# ~x]
+   `(let [and# ~x]
      (if and# (my-and ~@next) and#))))
 
 ;; use quoting to turn off evaluation
