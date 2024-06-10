@@ -48,3 +48,10 @@
 (if-valid order-details order-details-validations errors
           (println :success)
           (println :failure errors))
+
+;; EXERCISE 8.1
+(defmacro when-valid
+  [to-validate validations errors-name & body]
+  `(let [~errors-name (validate ~to-validate ~validations)]
+     (when (empty? ~errors-name)
+       ~@body)))
